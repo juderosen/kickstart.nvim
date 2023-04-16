@@ -147,7 +147,32 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
+  {
+    'nvim-telescope/telescope.nvim',
+    version = '*',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'debugloop/telescope-undo.nvim', -- this undo stuff is custom too
+      'nvim-telescope/telescope-file-browser.nvim', -- this is custom too
+      'nvim-telescope/telescope-media-files.nvim', -- this is custom too
+    },
+    config = function()
+      require("telescope").setup({
+        extensions = {
+          undo = {
+            side_by_side = true,
+            layout_strategy = "vertical",
+            layout_config = {
+              preview_height = 0.8,
+            },
+          },
+        },
+      })
+      require("telescope").load_extension("undo")
+      require("telescope").load_extension("file_browser")
+      require('telescope').load_extension('media_files') -- need external stuff setup for this to work
+    end,
+  },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -495,3 +520,13 @@ cmp.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+
+-- My custom stuff
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+
+-- Relative line numbers (for all but current line)
+vim.wo.relativenumber = true
+
