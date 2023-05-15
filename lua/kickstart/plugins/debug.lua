@@ -36,13 +36,21 @@ return {
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
-        'delve',
+        --'delve',
+        'python',
+        'codelldb',
+        'rust',
+      },
+      handlers = {
+        function(config)
+          require('mason-nvim-dap').default_setup(config)
+        end,
       },
     }
 
     -- You can provide additional configuration to the handlers,
     -- see mason-nvim-dap README for more information
-    require('mason-nvim-dap').setup_handlers()
+    -- require('mason-nvim-dap').setup_handlers()
 
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', dap.continue)
