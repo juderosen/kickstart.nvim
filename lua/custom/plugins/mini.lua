@@ -1,7 +1,7 @@
 return {
-  'echasnovski/mini.nvim',
+  'echasnovski/mini.move',
   version = false,
-  config = function ()
+  config = function()
     require('mini.move').setup()
   end
 }
